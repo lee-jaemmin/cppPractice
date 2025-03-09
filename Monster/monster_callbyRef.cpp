@@ -18,6 +18,9 @@ public:
     player() {}; // 중괄호 없으면 외부에서 생성자를 '정의' 해야함. 내부에서 '정의' 하기 위해서는 중괄호 필요.
 };
 
+
+
+
 class monster
 {
 public:
@@ -27,7 +30,7 @@ public:
     void special_attack(player target_player); // 중괄호 없이 "선언"만 하였다면 반드시 클래시 외부에서 '정의'가 필요
 };
 
-void monster::special_attack(player target_player) // 외부에서 '정의'하기
+void monster::special_attack(player target_player) //  외부에서 '정의'하기
 {
     cout << "기본 공격 데미지 -10hp" << endl;
 }
@@ -70,15 +73,15 @@ int main()
     player player_1;
     monster_a forest_monster;
 
-    monster &mon = forest_monster;
+    monster &mon = forest_monster; // forest_monster는 monster_a의 인스턴스이므로 인텡글 공격이 실행되어야 하는데 부모 클래스인 기본 공격이 실행됨. --> problematic --> virtual 사용.
     monster_a &mon_a = forest_monster;
 
     cout << endl
-         << "부모 클래스 레퍼런스로 공격" << endl;
+         <<  "부모 클래스 레퍼런스로 공격" << endl;
     mon.special_attack(player_1);
 
     cout << endl
-         << "자식 클래스 레퍼런스로 공격" << endl;
+         <<  "자식 클래스 레퍼런스로 공격" << endl;
     mon_a.special_attack(player_1);
 
     return 0;

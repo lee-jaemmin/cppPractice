@@ -5,38 +5,38 @@ using namespace std;
 class character
 {
 public:
-    character() : hp(100), power(100) {}; // 초기화 리스트.
+    character() : hp(100), power(100) {}; // 초기화 리스트트.
 
 protected:
     int hp;
     int power;
 };
 
-class player : public character // 단일 상속속
+class player : public character // 단일, public 상속 --> hp, power를 player 외부에서 사용이 가능한거지.
 {
 public:
-    player() {}; // 중괄호 없으면 외부에서 생성자를 '정의' 해야함. 내부에서 '정의' 하기 위해서는 중괄호 필요.
+    player() {}; // 중괄호로써써 내부에서 생성자 '정의'까지 마치는 방식.
 };
 
 class monster
 {
 public:
     monster() {};
-    void under_attack(int damage) {}; // 마찬가지 내부에서 '정의'하려면 중괄호 필요.
+    void under_attack(int damage) {}; // 중괄호로써써 내부에서 메소드(멤버 함수) '정의'까지 마치는 방식.
     void attack(player target_player) {};
-    void special_attack(player target_player); // 중괄호 없이 "선언"만 하였다면 반드시 클래시 외부에서 '정의'가 필요
+    void special_attack(player target_player); // 중괄호가 없으므로 외부에서 '정의' 필요. 현재는 '선언'만 한 상태.
 };
 
-void monster::special_attack(player target_player) // 외부에서 '정의'하기기
+void monster::special_attack(player target_player) // 외부에서 '정의' 중중
 {
-    cout << "기본 공격 데미지 -10hp" << endl;
+    cout << "기본 공격 -10hp" << endl;
 }
 
-// 기본 몬스터 클래스 상속
+// monster 클래스를 상속하여 monster_a,b,c를 만듦.
 
-class monster_a : public monster, character // 다중 상속속
+class monster_a : public monster, character // monster:public, character:private으로 다중 상속.
 {
-    // 생성자 없으면 부모 클래스 생성자 호출(이것마저 없으면 오류)
+    // 생성자 없을 시 부모클래스(여기선 monster) 생성자 호출. 
 public:
     void special_attack(player target_player)
     {
@@ -63,7 +63,7 @@ public:
 void monster_c::special_attack(player target_player)
 {
     cout << "강력 뇌전 공격!! 데미지 -100hp" << endl;
-}; // 메소드를 클래스 내부에 선언만 해놓고 외부에 정의하는 방식
+}; // 메소드를 클래스 외부에 정의하는 방식
 
 int main()
 {
@@ -80,7 +80,7 @@ int main()
     boss_monster.special_attack(player_1);
 
     cout << endl
-         << "기본 공격" << endl;
+         << "기본 공격격" << endl;
     forest_monster.monster::special_attack(player_1);
     tutorial_monster.monster::special_attack(player_1);
     boss_monster.monster::special_attack(player_1);
